@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %} 
+    <title>
+        Log In!
+    </title>
+
+{% endblock title %}
+{% block content %} 
+    <div class="row " style=" padding-top: 25%;">
+        <button class="btn btn-lg btn-outline-dark rounded-0 shadow-1-strong border-dark ripple-surface-primary " type="button" data-mdb-toggle = "modal" data-mdb-target = "#loginModal">
+            <p class="" style="font-family: 'Montserrat'; font-size: 25px; font-weight: 800;"> Login </p>
+        </button>
+    </div>
+           
+    <div class="modal fade" id = 'loginModal' tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header text-muted bg-light">
+                    <div class="modal-body">
+                        <form action="" method="post">
+                            {{form.hidden_tag()}}
+                            <fieldset class="form-group">
+                                <legend border-bottom mb-4>Fill up you login info!</legend>
+                                <div class="form-group">
+                                    {{form.username.label(class = 'form-control-label')}}
+
+                                    {% if form.username.errors %}
+                                        {{ form.username(class = 'form-control form-control-lg is-invalid')}}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.username.errors %}
+                                                <span>{{error}}</span>
+                                            {% endfor%}
+                                        </div>
+                                    {% else %}
+                                        {{form.username(class = 'form-control form-control-lg')}}
+                                    {% endif %}
+
+                                    
+                                </div>
+                                <div class="form-group">
+                                    {{form.password.label(class = 'form-control-label')}}
+                                    {% if form.password.errors %}
+                                        {{ form.password(class = 'form-control form-control-lg is-invalid')}}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.password.errors %}
+                                                <span>{{error}}</span>
+                                            {% endfor%}
+                                        </div>
+                                    {% else %}
+                                        {{form.password(class = 'form-control form-control-lg')}}
+                                    {% endif %}
+                                </div>
+                                <div class="form-check">
+                                    {{form.remember(class = "form-check-input")}}
+                                    {{form.remember.label(class = "form-check-label")}}
+                                </div>
+                            </fieldset>
+                            <div class="modal-footer">
+                                <div class="form-group">
+                                    {{form.submit(class = 'btn btn-lg bt-black rounded-0')}}
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+{% endblock content %}

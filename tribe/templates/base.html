@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+
+      {% block title %}
+      {% endblock title %}
+ 
+    <!-- MDB icon -->
+    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- MDB -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+      }
+
+      body {
+          height: 100%;
+          background-color: #fff;
+      }
+
+      .navbar {
+          width: 250px;
+          height: 100vh;
+          position: fixed;
+          margin-left: -300px;
+          background-color : black;
+          transition: 0.2s;
+          z-index: 100;
+      }
+
+      .nav-link {
+          font-size: 1.25em;
+      }
+
+      
+      .dropdown-menu {
+          background-color: #7952b3;
+      }
+
+      .my-container {
+          transition: 0.2s;
+      }
+
+
+      /* for navbar */
+
+      .active-nav {
+          margin-left: 0;
+      }
+
+
+      /* for main section */
+
+      .active-container {
+          margin-left: 250px;
+      }
+
+    </style>
+  </head>
+    <!-- Sidebar -->
+    <nav class="navbar navbar-expand d-flex flex-column align-item-center" id="sidebar">
+      <a href="#" class="navbar-brand text-white-50" style="font-family: 'Montserrat'; font-size: 35px;">tribe</a>
+      <ul class = "navbar-nav d-flex flex-column mt-5 w-100 align-items-center justify-content-center">
+        <li class="nav-item border-black border-bottom m-1" style = "font-family: 'Raleway'; font-weight: 700; font-size: 25px" >
+          <a class="nav-link text-muted " href="/one">
+            <i class="fas fa-code">
+              One
+           </i>
+          </a>
+        </li>
+        <li class="nav-item border-black border-bottom  m-1" style = "font-family: 'Raleway'; font-weight: 700; font-size: 25px" >
+          <a class="nav-link text-muted " href="">
+            <i class="fas fa-code-branch">
+              Two
+            </i>
+          </a>
+        </li>
+        <li class="nav-item border-black border-bottom m-1" style = "font-family: 'Raleway'; font-weight: 700; font-size: 25px" >
+          <a class="nav-link text-muted " href="">
+            <i class="fas fa-qrcode">
+              Three
+            </i>
+          </a>
+        </li>
+        <li class="nav-item border-black border-bottom m-1" style = "font-family: 'Raleway'; font-weight: 700; font-size: 25px" >
+          <a class="nav-link text-muted " href="">
+            <i class="fas fa-file-code">
+              Four
+            </i>
+          </a>
+        </li>
+        <li class="nav-item border-black border-bottom m-1" style = "font-family: 'Raleway'; font-weight: 700; font-size: 25px" >
+          <a class="nav-link text-muted " href="">
+            <i class="far fa-file-code">
+              Five
+            </i>
+          </a>
+        </li>
+        <li class="nav-item border-black border-bottom m-1" style = "font-family: 'Raleway'; font-weight: 700; font-size: 25px" >
+          <a class="nav-link text-muted " href="">
+            <i class="fas fa-terminal">
+              Six
+            </i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- Sidebar ENDS -->
+
+
+    <section >
+      <div id = 'my_container'>
+        <section class="row justify-content-center align-items-center bg-dark" style="height : 70px; font-family: 'Montserrat';">
+          <button class="btn btn-dark shadow-0 ripple-surface-white " id = 'menu_button' style="height: 70px; font-size: 30px; background-color: black;"><i class="fas fa-infinity"></i>Tribe</button>
+        </section>
+        <section>
+          <div class="p-3 m-3">
+            {% block content %} 
+
+            {% endblock content %}
+          </div>
+        </section>
+      </div>
+      
+    </section>
+    
+
+
+
+
+    <!-- MDB -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.min.js" integrity="sha384-5h4UG+6GOuV9qXh6HqOLwZMY4mnLPraeTrjT5v07o347pj6IkfuoASuGBhfDsp3d" crossorigin="anonymous"></script>
+    <script>
+      var menu_button = document.querySelector('#menu_button')
+      var sidebar = document.querySelector('#sidebar')
+      var container = document.querySelector('#my_container')
+      menu_button.addEventListener( 'click', () => {
+        sidebar.classList.toggle('active-nav')
+        container.classList.toggle('active-container')
+      })
+    </script>
+  </body>
+</html>
