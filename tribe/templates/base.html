@@ -93,7 +93,7 @@
           </a>
         </li>
         <li class="nav-item border-black border-bottom  m-1" style = "font-family: 'Raleway'; font-weight: 700; font-size: 25px" >
-          <a class="nav-link text-muted " href="">
+          <a class="nav-link text-muted " href="{{url_for('two')}}">
             <i class="fas fa-code-branch">
               Two
             </i>
@@ -128,6 +128,31 @@
           </a>
         </li>
       </ul>
+      <div class="btn-group btn-group-vertical"  style = " font-family: 'Montserrat'; " role="group">
+        {% if current_user.is_authenticated %}
+        <button type="button" class="btn border-bottom rounded-0" data-mdb-ripple-color="dark">
+          <a class="nav-link text-muted" href = "{{url_for('new_post')}}">
+            Create 
+          </a>
+        </button>
+        <button type="button" class="btn  rounded-0" data-mdb-ripple-color="dark">
+          <a class="nav-link text-muted" href = "{{url_for('logout')}}">
+            Logout
+          </a>
+        </button>
+        {% else %}
+          <button type="button" class="btn border-bottom rounded-0" data-mdb-ripple-color="dark">
+            <a class="nav-link text-muted" href = "{{url_for('login')}}">
+              Login
+            </a>
+          </button>
+          <button type="button" class="btn  rounded-0" data-mdb-ripple-color="dark">
+            <a class="nav-link text-muted " href = "{{url_for('register')}}">
+              Register
+            </a>
+          </button>
+        {% endif %}
+      </div>
     </nav>
     <!-- Sidebar ENDS -->
 
@@ -138,7 +163,16 @@
           <button class="btn btn-dark shadow-0 ripple-surface-white " id = 'menu_button' style="height: 70px; font-size: 30px; background-color: black;"><i class="fas fa-infinity"></i>Tribe</button>
         </section>
         <section>
-          <div class="p-3 m-3">
+          <div class="p-3 m-3 justify-content-center">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+                {% for category, message in messages %}
+                  <div class="alert alert-{{ category }}">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
             {% block content %} 
 
             {% endblock content %}

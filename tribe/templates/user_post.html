@@ -1,26 +1,22 @@
 {% extends 'base.html' %}
 {% block title %} 
     <title>
-        Tribe
+        UserPosts
     </title>
 {% endblock title %}
 {% block content %}
     
         <div>
-            <p class="display-5 p-5 text-center text-dark border-bottom border-black" >
-                Welcome to Tribe
+            <p class="display-3 p-5 text-center text-dark border-bottom border-black" >
+                Posts by {{user.username}} ({{posts.total}})
             </p>
         </div>
 
-        <div class="container text-center text-dark">
-            <p class = "p-5 border-dark " style = "font-family: 'Raleway'; font-size: 30px;">
-                See the public posts below
-            </p>
-        </div>
+    
         {% for post in posts.items %}
-            <div class="container border-bottom border-black my-3 py-3">
+            <div class="container">
                 <div class="text-black display-3 ">
-                    Posted by <a href="{{url_for('user_posts', username = post.author.username)}}"> {{post.author.username}} </a>
+                Posted by <a href="{{url_for('user_posts', username = post.author.username)}}"> {{post.author.username}} </a>
                 </div>
                 <div class="text-black display-6">
                     on {{post.date_posted.strftime('%Y-%m-%d')}}
@@ -37,20 +33,19 @@
                 <br>
             </div>
         {% endfor %}
-        
-        <div class="justify-content-center">
+        <p class=" justify-content-start">
             {% for page_num in posts.iter_pages(left_edge = 1, right_edge = 1, left_current = 1, right_current = 3) %}
                 
                 {% if page_num %}
                     {% if page_num == posts.page %}
-                        <a class="btn btn-black" href="{{url_for('home', page = page_num)}}"> {{page_num}} </a>
+                        <a class="btn btn-black btn-sm" href="{{url_for('home', page = page_num)}}"> {{page_num}} </a>
                     {% else %}
-                        <a href="{{url_for('home', page = page_num)}}" class="btn btn-outline-dark"> {{page_num}} </a>
+                        <a href="{{url_for('home', page = page_num)}}" class="btn btn-outline-dark btn-sm"> {{page_num}} </a>
                     {% endif %}
                 {% else %}
                     ...
                 {% endif %}
             {% endfor %}
-        </div>
+        </p>
 
 {% endblock content %}
