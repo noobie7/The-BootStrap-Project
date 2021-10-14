@@ -1,0 +1,12 @@
+flask 
+requests
+operator
+flask-globals
+flask-wtf
+flask-login
+secrets
+os
+flask-sqlalchemy
+flask-bcrypt
+bcrypt
+PIL
