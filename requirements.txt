@@ -1,6 +1,5 @@
 flask 
 requests
-operator
 flask-globals
 flask-wtf
 flask-login
