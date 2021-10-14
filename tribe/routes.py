@@ -1,12 +1,16 @@
+from operator import imod
 from flask.globals import request
+from flask_wtf.recaptcha.widgets import JSONEncoder
 from tribe.models import User, Post
-from flask import render_template, url_for, flash, redirect, abort
+from flask import json, render_template, url_for, flash, redirect, abort
 from tribe.forms import RegistrationForm, LoginForm, UpdateAccountForm, PostForm
 from tribe import app, db, bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 import secrets
 import os
+import requests
 from PIL import Image
+
 
 @app.route('/', methods = ['GET', 'POST'])
 @app.route('/home', methods = ['GET', 'POST'])
@@ -99,7 +103,9 @@ def one():
 @app.route('/two')
 @login_required
 def two():
-    return render_template('two.html')
+    j = requests.get(url = "https://codeforces.com/api/contest.standings", params= {'contestId' : 1003, 'from' : 1, 'count' : 10, })
+    j = j.json()
+    return render_template('two.html', info = j)
 
 @app.route('/post/new', methods = ['GET', 'POST'])
 @login_required
