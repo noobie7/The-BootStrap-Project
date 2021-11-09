@@ -6,77 +6,32 @@
 {% endblock title %}
 {% block content %} 
     <div class="container p-3 m-3 ">
-        <canvas class="p-5 canvas-fluid"  id="myChart"></canvas>
+        <canvas class="p-5 canvas-fluid"  id="myChart" style="height: 200vh; width: 200vw;"></canvas>
     </div>
     
-    
-    <div class="dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
-      <div class="dataTable-top">
-        <div class="dataTable-dropdown">
-          <label>
-            <select name="" id="" class="dataTable-selector">
-              <option value="5">5</option>
-              <option value="10" selected = "">10</option>
-              <option value="15">15</option>
-              <option value="20">20</option>
-            </select>
-          </label>
-        </div>
-        <div class="dataTable-search">
-          <input type="text" class = "dataTable-empty">
-        </div>
-      </div>
-      <div class="dataTable-container">
-        <table class="table dataTable-table">
-
-        </table>
-      </div>
-      <div class="dataTable-bottom"></div>
-    </div>
+  
 
 
-
-    <!-- <div class="display-4">
-      {% for key in info.result.rows %}
-        {{key.rank}} {{key.party.members[0].handle}} {{key.points}} {{key.penalty}} 
-        <br>
-      {% endfor %}
-    </div> -->
 
 {% endblock content %}
 
 {% block script %}
 
 <script>
+
+  printChart('line');
+  async function printChart( chartType ) {
     let myChart = document.getElementById('myChart').getContext('2d');
-
-    // Global Options
-
-
+    const data = await getdata();
     let massPopChart = new Chart(myChart, {
-      type:'pie', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
+      type: chartType, // bar, horizontalBar, pie, line, doughnut, radar, polarArea
       data:{
         labels:['Boston', 'Worcester', 'Springfield', 'Lowell', 'Cambridge', 'New Bedford'],
         datasets:[{
-          label:'Population',
-          data:[
-            617594,
-            181045,
-            153060,
-            106519,
-            105162,
-            95072
-          ],
+          label: data.xs,
+          data: data.ys,
           //backgroundColor:'green',
-          backgroundColor:[
-            'rgba(255, 99, 132, 0.6)',
-            'rgba(54, 162, 235, 0.6)',
-            'rgba(255, 206, 86, 0.6)',
-            'rgba(75, 192, 192, 0.6)',
-            'rgba(153, 102, 255, 0.6)',
-            'rgba(255, 159, 64, 0.6)',
-            'rgba(255, 99, 132, 0.6)'
-          ],
+          backgroundColor:[],
           borderWidth:1,
           borderColor:'white',
           hoverBorderWidth:3,
@@ -99,7 +54,7 @@
         layout:{
           padding:{
             left:50,
-            right:0,
+            right:50,
             bottom:0,
             top:0
           }
@@ -109,13 +64,25 @@
         }
       }
     });
-</script>
-<script>
-fetch().then(response => response.json()).then(data =>{let table = new simpleDatatables.DataTable(".table", {
-  data : {
-    headings : [], 
-    data: data.map(item => Object.values(item))
   }
-}) })
+  async function getdata(){
+    const xs = [];
+    const ys = [];
+    const response = await fetch("https://api.openweathermap.org/data/2.5/weather?q=New York&appid=b8fbb0cd1cba6603b3215309720fa9eb");
+    const data = await response.text();
+    console.log(response);
+    const table = data.split('\n').slice(1);
+    table.forEach(row => {
+      const columns = row.split(',');
+      const year = columns[0];
+      xs.push(year);
+      const temp = columns[1];
+      ys.push(parseInt(temp) + 14);
+    });
+    return {xs, ys};
+  }
+
+  
+  
 </script>
-{% endblock script %}
+{% endblock script %} 

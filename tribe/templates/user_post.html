@@ -7,7 +7,7 @@
 {% block content %}
     
         <div>
-            <p class="display-3 p-5 text-center text-dark border-bottom border-black" >
+            <p class="display-3 p-5 text-center text-white border-bottom border-white" >
                 Posts by {{user.username}} ({{posts.total}})
             </p>
         </div>
@@ -15,10 +15,10 @@
     
         {% for post in posts.items %}
             <div class="container">
-                <div class="text-black display-3 ">
+                <div class="text-white display-3 ">
                 Posted by <a href="{{url_for('user_posts', username = post.author.username)}}"> {{post.author.username}} </a>
                 </div>
-                <div class="text-black display-6">
+                <div class="text-white display-6">
                     on {{post.date_posted.strftime('%Y-%m-%d')}}
                 </div>
                 <div class="row note note-info">

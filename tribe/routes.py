@@ -13,11 +13,11 @@ from PIL import Image
 
 
 @app.route('/', methods = ['GET', 'POST'])
-@app.route('/home', methods = ['GET', 'POST'])
-def home():
+@app.route('/one', methods = ['GET', 'POST'])
+def one():
     page = request.args.get('page', 1, type = int)
     posts = Post.query.order_by(Post.date_posted.desc()).paginate(page = page, per_page=5)
-    return render_template('home.html', posts = posts)
+    return render_template('one.html', posts = posts)
 
 
 @app.route('/register', methods = ['GET', 'POST'])
@@ -58,7 +58,7 @@ def login():
 def logout():
     logout_user()
     flash(f'Successfully logged out!', 'success')
-    return redirect(url_for('home'))
+    return redirect(url_for('one'))
 
 def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
@@ -95,10 +95,10 @@ def account():
     image_file = url_for('static', filename = current_user.image_file)
     return render_template('account.html', image_file = image_file, form = form)
 
-@app.route('/one')
+@app.route('/home')
 @login_required
-def one():
-    return render_template('one.html')
+def home():
+    return render_template('home.html')
 
 @app.route('/two')
 @login_required
@@ -106,6 +106,13 @@ def two():
     j = requests.get(url = "https://codeforces.com/api/contest.standings", params= {'contestId' : 1003, 'from' : 1, 'count' : 10, })
     j = j.json()
     return render_template('two.html', info = j)
+
+@app.route('/three')
+@login_required
+def three():
+    return render_template('three.html')
+
+
 
 @app.route('/post/new', methods = ['GET', 'POST'])
 @login_required
@@ -116,7 +123,7 @@ def new_post():
         db.session.add(post)
         db.session.commit()
         flash(f'Your post has been created!', 'success')
-        return redirect(url_for('home'))
+        return redirect(url_for('one'))
     return render_template('create_post.html', form = form, legend = 'Create Post')
 
 @app.route('/post/<int:post_id>')
@@ -152,7 +159,7 @@ def delete_post(post_id):
     db.session.delete(post)
     db.session.commit()
     flash('Your post has been deleted', 'success')  
-    return redirect(url_for('home'))
+    return redirect(url_for('one'))
 
 @app.route('/user/<string:username>')
 def user_posts(username):

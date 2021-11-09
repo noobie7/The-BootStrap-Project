@@ -1,32 +1,61 @@
 {% extends 'base.html' %}
 {% block title %} 
     <title>
-        One
+        Tribe
     </title>
 {% endblock title %}
 {% block content %}
-    <div class="container p-3">
-        <div class="row g-3 justify-content-between align-items-center">
-            <div class="col col-md-8 col-lg-4">
-                <img src="https://images.unsplash.com/photo-1633098096909-3eaf5f5e36cb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=50" class = "img-fluid " alt="">
-            </div>
-            <div class="col col-md-8 col-lg-4">
-                <img src="https://images.unsplash.com/photo-1633118578606-a2271368821b?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5MHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=50" class = "img-fluid" alt="">
-            </div>
-            <div class="col col-md-8 col-lg-4">
-                <img src="https://images.unsplash.com/photo-1633098096909-3eaf5f5e36cb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=50" class = "img-fluid" alt="">
-            </div>
+    
+        <div>
+            <p class="display-5 p-5 text-center text-white border-bottom border-2 border-white" >
+                Welcome to Tribe
+            </p>
         </div>
-        <div class="row g-3 justify-content-between align-items-center py-3">
-            <div class="col col-md-8 col-lg-4">
-            <img src="https://images.unsplash.com/photo-1633098096909-3eaf5f5e36cb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=50" class = "img-fluid " alt="">
+        {% if current_user.is_authenticated  %}
+            <div class="container text-center text-white">
+                <p class = "p-5 border-white " style = "font-family: 'Raleway'; font-size: 30px;">
+                    See the public posts below
+                </p>
             </div>
-            <div class="col col-md-8 col-lg-4">
-            <img src="https://images.unsplash.com/photo-1633118578606-a2271368821b?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHw5MHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=50" class = "img-fluid" alt="">
+            {% for post in posts.items %}
+                <div class="container border-bottom border-white my-3 py-3">
+                    <div class="text-white display-3 ">
+                        Posted by <a href="{{url_for('user_posts', username = post.author.username)}}"> {{post.author.username}} </a>
+                    </div>
+                    <div class="text-white display-6">
+                        on {{post.date_posted.strftime('%Y-%m-%d')}}
+                    </div>
+                    <div class="row note note-info">
+                        <div class = "p-5 col-8 " style = "font-family: 'Montserrat'; font-size: 25px;">
+                            <a href="{{url_for('post', post_id = post.id)}}">{{post.title}}</a>
+                        </div>
+                        <div class = "p-5 col-8 " style = "font-family: 'Raleway'; font-size: 15px;">
+                            {{post.content}}
+                        </div>
+                        <img class="col-2 rounded-circle" style =" height: 175px; width: 175px; " src = '{{url_for('static', filename = post.author.image_file)}}'>
+                    </div>
+                    <br>
+                </div>
+            {% endfor %}
+            
+            <div class="justify-content-center">
+                {% for page_num in posts.iter_pages(left_edge = 1, right_edge = 1, left_current = 1, right_current = 3) %}
+                    
+                    {% if page_num %}
+                        {% if page_num == posts.page %}
+                            <a class="btn btn-black" href="{{url_for('home', page = page_num)}}"> {{page_num}} </a>
+                        {% else %}
+                            <a href="{{url_for('home', page = page_num)}}" class="btn btn-outline-dark"> {{page_num}} </a>
+                        {% endif %}
+                    {% else %}
+                        ...
+                    {% endif %}
+                {% endfor %}
             </div>
-            <div class="col col-md-8 col-lg-4">
-            <img src="https://images.unsplash.com/photo-1633098096909-3eaf5f5e36cb?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=50" class = "img-fluid" alt="">
+        {% else %}
+            <div class="d-flex p-5 m-3 rounded-0 display-1 text-white justify-content-center align-items-center">
+                Login / Register to continue!
             </div>
-        </div>
-    </div>
+        {% endif %}
 {% endblock content %}
+3
