@@ -1,7 +1,8 @@
 # The-BootStrap-Project
-This is a basic implementation of latest release of bootstrap framework.
+This is a FLASK application the has a basic implementation of latest release of bootstrap framework as the frontend.
 
-Here are the resources for the collaborators -> 
+
+Here are the resources -> 
   1. Official BootStrap Documentation - https://getbootstrap.com/docs/5.1/getting-started/introduction/
   2. Quick lookup list                - https://bootstrapcreative.com/resources/bootstrap-5-cheat-sheet-classes-index/
   3. Free to use Images               - https://unsplash.com/
