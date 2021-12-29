@@ -1,1 +1,1 @@
-web: gunicorn tribe:app --log-file=-
+web: gunicorn tribe:app localhost:5000
