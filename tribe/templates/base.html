@@ -8,8 +8,6 @@
       {% block title %}
       {% endblock title %}
 
-    <!-- MDB icon -->
-    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/css/bootstrap.min.css" integrity="sha384-DhY6onE6f3zzKbjUPRc2hOzGAdEf4/Dz+WJwBvEYL/lkkIsI3ihufq9hk9K4lVoK" crossorigin="anonymous">
     <!-- Font Awesome -->
     <link
@@ -25,48 +23,55 @@
       href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700&display=swap"
       rel="stylesheet"
     />
-    <!-- MDB -->
+  
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css"
       rel="stylesheet"
     />
     <link href="https://cdn.jsdelvr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
     <script src="https://cdn.jsdelvr.net/npm/simple-datatables@latest" type="text/javascript"></script>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.1/Chart.min.js"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>   
+
     <style>
       :root {
           margin: 0;
           padding: 0;
           box-sizing: border-box;
-          --background :  linear-gradient(0.15deg,  #D16BA5,#86A8E7, #5FFBF1);
-          --element : #0EEEA5;
-          --glass : linear-gradient(103.71deg, rgba(255, 255, 255, 0.12) 0.23%, rgba(255, 255, 255, 0.6) 0.23%);
-          --dt : white ;
+          --background :  linear-gradient(45deg,  #fc1255,#b537ed);
+          --element : #FF9671;
+          --glass : linear-gradient(103.71deg, rgba(255, 255, 255, 0.1) 0.23%, rgba(255, 255, 255, 0.1) 0.23%);
+          --details : black ;
           --text_on_glass : white;
-          --ft : white;
+          --_blur : blur(25px);
+          --text_not_on_glass : white;
       }
       .theme-1{
-        --background : linear-gradient(252.15deg, #845EC2, #FF6F91 102.08%);
+        --background :  linear-gradient(45deg,  #b537ed, #0057b8);
         --element : #FF9671;
-        --dt : white ;
-        --tx : white;
-        --ft : white;
-        --glass :  linear-gradient(103.71deg, rgba(7, 7, 7, 0.12) 0.23%, rgba(12, 11, 11, 0.6) 0.23%);
+        --details : white ;
+        /* --text_on_glass : rgb(97, 99, 240); */
+        --text_not_on_glass : white;
       }
       .theme-2{
-        --background : linear-gradient(252.15deg,#5AB7D4, #C2F9FF, #487E90); 
-        --element : #55c8eb;
-        --tx : white;
-        --ft : white;
-        --dt : white;
+        --background : linear-gradient(45deg, #323232, #323232); ; 
+        --element : #323232;
+        --text_on_glass : rgb(167, 161, 161);
+        --glass : linear-gradient(103.71deg,#212121, #212121 );
+        --text_not_on_glass : white;
+        --details : white;
+        --_blur: blur(100px);
       }
       #glass{
         background: var(--glass);
-        backdrop-filter: blur(25px);
-        z-index: 2;
-        border-radius: 1.5%;
-        border : var(--dt) !important;
+        backdrop-filter: var(--_blur);
+        z-index: 1;
+        border-radius: 5%;
+        border-width: thick;
+        color : var(--text_on_glass);
+        margin : 20px;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
       } 
       
       body {
@@ -82,13 +87,18 @@
           position: fixed;
           margin-left: -300px;
           transition: 0.2s;
-          z-index: 100;
-          background: linear-gradient(103.71deg, rgba(255, 255, 255, 0.12) 55.73%, rgba(255, 255, 255, 0.12) 55.73%);
+          z-index: 1;
+          background: var(--glass);
           backdrop-filter: blur(100px);
-          box-shadow: 0;
+          box-shadow: 0;      
       }
       .nav-link {
           font-size: 1.25em;
+          color: var(--text_on_glass);
+      }
+      .nav-link:hover,
+      .nav-link:focus {
+        color: var(--text_on_glass);
       }
       .my-container {
           transition: 0.2s;
@@ -100,82 +110,83 @@
           margin-left: 250px;
           width: calc(100vw - 250px);
       }
-      .text{
-            color: var(--ft);
-        }
+      .btn:focus{
+        box-shadow: none;
+      }
       
+
         
     </style>
   </head>
     <!-- Sidebar -->
     <nav class="navbar navbar-expand d-flex flex-column align-item-center" id="sidebar">
-      <a href="{{url_for('home')}}" class="navbar-brand text-white" style="font-family: 'Montserrat'; font-size: 35px;">TRIBE</a>
+      <a href="{{url_for('home')}}" class="navbar-brand" style="font-family: 'Montserrat'; font-size: 35px; color : var(--text_on_glass); overflow: hidden">TRIBE</a>
       {% if current_user.is_authenticated %}
         <ul class = "navbar-nav d-flex flex-column mt-5 w-100 align-items-center justify-content-center">
-          <li class="nav-item border-white-50 border-bottom m-1" style = "font-family: 'Raleway'; font-weight: 700; font-size: 25px" >
-            <a class="nav-link text-white " href="/one">
+          <li class="nav-item m-1" style = "font-family: 'Raleway'; font-weight: 200; font-size: 25px; overflow: hidden;" >
+            <a class="nav-link  " href="/one">
               <i class="fas fa-code">
                 One
             </i>
             </a>
           </li>
-          <li class="nav-item border-white-50 border-bottom  m-1" style = "font-family: 'Raleway'; font-weight: 700; font-size: 25px" >
-            <a class="nav-link text-white " href="{{url_for('two')}}">
+          <li class="nav-item  m-1" style = "font-family: 'Raleway'; font-weight: 200; font-size: 25px; overflow: hidden;" >
+            <a class="nav-link  " href="{{url_for('two')}}">
               <i class="fas fa-code-branch">
                 Two
               </i>
             </a>
           </li>
-          <li class="nav-item border-white-50 border-bottom m-1" style = "font-family: 'Raleway'; font-weight: 700; font-size: 25px" >
-            <a class="nav-link text-white " href="{{url_for('three')}}">
+          <li class="nav-item m-1" style = "font-family: 'Raleway'; font-weight: 200; font-size: 25px; overflow: hidden;" >
+            <a class="nav-link  " href="{{url_for('three')}}">
               <i class="fas fa-qrcode">
                 Three
               </i>
             </a>
           </li>
-          <li class="nav-item border-white-50 border-bottom m-1" style = "font-family: 'Raleway'; font-weight: 700; font-size: 25px" >
-            <a class="nav-link text-white " href="">
+          <li class="nav-item m-1" style = "font-family: 'Raleway'; font-weight: 200; font-size: 25px; overflow: hidden;" >
+            <a class="nav-link  " href="">
               <i class="fas fa-file-code">
                 Four
               </i>
             </a>
           </li>
-          <li class="nav-item border-white-50 border-bottom m-1" style = "font-family: 'Raleway'; font-weight: 700; font-size: 25px" >
-            <a class="nav-link text-white " href="">
+          <li class="nav-item m-1" style = "font-family: 'Raleway'; font-weight: 200; font-size: 25px; overflow: hidden;" >
+            <a class="nav-link  " href="">
               <i class="far fa-file-code">
                 Five
               </i>
             </a>
           </li>
-          <li class="nav-item border-white-50 border-bottom m-1" style = "font-family: 'Raleway'; font-weight: 700; font-size: 25px" >
-            <a class="nav-link text-white " href="">
+          <li class="nav-item m-1" style = "font-family: 'Raleway'; font-weight: 200; font-size: 25px; overflow: hidden;" >
+            <a class="nav-link  " href="">
               <i class="fas fa-terminal">
                 Six
               </i>
             </a>
           </li>
         </ul>
-        <div class="btn-group btn-group-vertical shadow-0"  style = " font-family: 'Montserrat'; padding-top: 5vh;" role="group">
+        <div class="btn-group btn-group-vertical shadow-0"  style = " font-family: 'Montserrat'; padding-top: 5vh;; overflow: hidden;" role="group">
           <button type="button" class="btn border-bottom rounded-0" data-mdb-ripple-color="dark">
-            <a class="nav-link text-white" href = "{{url_for('new_post')}}">
+            <a class="nav-link " href = "{{url_for('new_post')}}">
               Create 
             </a>
           </button>
           <button type="button" class="btn  rounded-0" data-mdb-ripple-color="dark">
-            <a class="nav-link text-white" href = "{{url_for('logout')}}">
+            <a class="nav-link " href = "{{url_for('logout')}}">
               Logout
             </a>
           </button>
         </div>
       {% else %}
-      <div class="btn-group btn-group-vertical shadow-0"  style = " font-family: 'Montserrat'; padding-top: calc((100vh - 185px) / 2)  ;" role="group">
+      <div class="btn-group btn-group-vertical shadow-0"  style = " font-family: 'Montserrat'; padding-top: calc((100vh - 185px) / 2)  ; overflow: hidden;;" role="group">
           <button type="button" class="btn border-bottom rounded-0" data-mdb-ripple-color="dark">
-            <a class="nav-link text-white" href = "{{url_for('login')}}">
+            <a class="nav-link " href = "{{url_for('login')}}">
               Login
             </a>
           </button>
           <button type="button" class="btn  rounded-0" data-mdb-ripple-color="dark">
-            <a class="nav-link text-white " href = "{{url_for('register')}}">
+            <a class="nav-link  " href = "{{url_for('register')}}">
               Register
             </a>
           </button>
@@ -186,12 +197,14 @@
 
 
     <section >
-      <div id = 'my_container'>
-        <section class="row justify-content-center align-items-center" style="height : 70px; font-family: 'Montserrat'; width: 100vw; z-index: 999;" id = "nav-button">
-          <button class="btn shadow-0 ripple-surface-white text-white" id = 'menu_button' style="height: 70px; font-size: 30px; "><i class="fas fa-infinity"></i>Tribe</button>
-        </section>
-        <section>
-          <div class="p-3 m-3 justify-content-center align-items-center">
+      <div id = 'my_container' >
+        
+
+          
+          <div class="px-3 mx-3 justify-content-center align-items-center">
+            <section class="row justify-content-center align-items-center" style="height : 70px; font-family: 'Montserrat'; width: 100%; z-index: 1; " id = "nav-button">
+              <button class="btn shadow-0 ripple-surface-white text-white" id = 'menu_button' style="height: 70px; font-size: 30px;"><i class="fas fa-infinity"></i>Tribe</button>
+            </section>
             {% with messages = get_flashed_messages(with_categories=true) %}
               {% if messages %}
                 {% for category, message in messages %}
@@ -205,7 +218,6 @@
 
             {% endblock content %}
           </div>
-        </section>
       </div>
     </section>
     
@@ -214,11 +226,13 @@
 
 
     <!-- MDB -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
-    <script src="https://cdn.jsdelvr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbackgroundU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"
+    ></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha2/js/bootstrap.min.js" integrity="sha384-5h4UG+6GOuV9qXh6HqOLwZMY4mnLPraeTrjT5v07o347pj6IkfuoASuGBhfDsp3d" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
-    <script src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/js/dist/main.js"></script>
+    
+
 
     <script>
       var menu_button = document.querySelector('#menu_button')
@@ -237,6 +251,7 @@
 <script>
 window.onload = function() {
   // Try to read from local storage, otherwise set to default
+  
   let currentTheme = localStorage.getItem("mytheme") || "default";
 
   const themeSelector = document.getElementById("theme-selector");
@@ -282,35 +297,25 @@ window.onload = function() {
     p: false
   };
 
-  document.onkeydown = keyDownEvent => {
-    //Prevent default key actions, if desired
-    //keyDownEvent.preventDefault();
+  document.onkeydown = (keyDownEvent) => {
+ 
 
-    // Track down key click
+   
     isKeyPressed[keyDownEvent.key] = true;
 
-    // Check described custom shortcut
     if (isKeyPressed["a"] && isKeyPressed["p"]) {
-      //for example we want to check if a and b are clicked at the same time
-      //do something as custom shortcut (a & b) is clicked
 
       sidebar.classList.toggle('active-nav')
       container.classList.toggle('active-container')
+     
     }
   };
-
-  document.onkeyup = keyUpEvent => {
-    // Prevent default key actions, if desired
+  document.onkeyup = (keyUpEvent) => {
+    
     keyUpEvent.preventDefault();
+    isKeyPressed[keyDownEvent.key] = false;
 
-    // Track down key relase
-    isKeyPressed[keyUpEvent.key] = false;
-
-    // when one of the keys is relased, show text indicating
-    // text is no longer clicked
-    if (!isKeyPressed["a"] || !isKeyPressed["b"]) {
-      shortcutClickedTextRef.style.display = "none";
-      shortcutNotClickedTextRef.style.display = "flex";
-    }
   };
+
+  
 </script>

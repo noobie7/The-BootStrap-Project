@@ -7,7 +7,7 @@
 {% block content %}
     
         <div>
-            <p class="display-5 p-5 text-center text-white border-bottom border-2 border-white" >
+            <p class="display-5 p-5 text-center text-white border-bottom border-2 border-white" style = "margin-left: auto; margin-right: auto; width: 80%;" >
                 Welcome to Tribe
             </p>
         </div>
@@ -18,14 +18,14 @@
                 </p>
             </div>
             {% for post in posts.items %}
-                <div class="container border-bottom border-white my-3 py-3">
+            <div class="p-5 my-5" id = "glass" style = "font-family: 'Raleway'; font-weight: 500; font-size: 44px; border-width: thick; border-color : var(--details); width: 80%; margin-left: auto; margin-right: auto;" >
                     <div class="text-white display-3 ">
                         Posted by <a href="{{url_for('user_posts', username = post.author.username)}}"> {{post.author.username}} </a>
                     </div>
                     <div class="text-white display-6">
                         on {{post.date_posted.strftime('%Y-%m-%d')}}
                     </div>
-                    <div class="row note note-info">
+                    <div class="row ">
                         <div class = "p-5 col-8 " style = "font-family: 'Montserrat'; font-size: 25px;">
                             <a href="{{url_for('post', post_id = post.id)}}">{{post.title}}</a>
                         </div>
@@ -38,7 +38,7 @@
                 </div>
             {% endfor %}
             
-            <div class="justify-content-center">
+            <div class="d-row justify-content-center">
                 {% for page_num in posts.iter_pages(left_edge = 1, right_edge = 1, left_current = 1, right_current = 3) %}
                     
                     {% if page_num %}
@@ -56,6 +56,5 @@
             <div class="d-flex p-5 m-3 rounded-0 display-1 text-white justify-content-center align-items-center">
                 Login / Register to continue!
             </div>
-        {% endif %}
+        {% endif %} 
 {% endblock content %}
-3
