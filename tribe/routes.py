@@ -9,7 +9,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 import secrets
 import os
 import requests
-from PIL import Image
+
 
 
 @app.route('/', methods = ['GET', 'POST'])
