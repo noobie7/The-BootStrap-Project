@@ -1,1 +1,1 @@
-web: gunicorn tribe:app -b localhost:5000
+web: gunicorn tribe:app 0.0.0.0:5000
