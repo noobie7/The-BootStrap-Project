@@ -1,1 +1,1 @@
-web: gunicorn tribe:app 0.0.0.0:5000
+worker: gunicorn tribe:app 0.0.0.0:5000
